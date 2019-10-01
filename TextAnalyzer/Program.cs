@@ -10,6 +10,56 @@ namespace TextAnalyzer
     {
         static void Main(string[] args)
         {
+            MainMenu();
+        }
+
+        public static void MainMenu()
+        {
+            int choice;
+            do
+            {
+                Console.Clear(); //Clear console each time menu is loaded
+                Console.WriteLine("1. Pobierz plik z internetu");
+                Console.WriteLine("2. Zlicz liczbę liter w pobranym pliku");
+                Console.WriteLine("3. Zlicz liczbę wyrazów w pliku");
+                Console.WriteLine("4. Zlicz liczbę znaków interpunkcyjnych w pliku");
+                Console.WriteLine("5. Zlicz liczbę zdań w pliku");
+                Console.WriteLine("6. Wygeneruj raport o użyciu liter (A-Z)");
+                Console.WriteLine("7. Zapisz statystyki z punktów 2-5 do pliku statystyki.txt");
+                Console.WriteLine("8. Wyjście z programu");
+                choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        //TBD
+                        break;
+                    case 2:
+                        //TBD
+                        break;
+                    case 3:
+                        //TBD
+                        break;
+                    case 4:
+                        //TBD
+                        break;
+                    case 5:
+                        //TBD
+                        break;
+                    case 6:
+                        //TBD
+                        break;
+                    case 7:
+                        //TBD
+                        break;
+                    case 8:
+                        Console.WriteLine("Zamykanie programu. Naciśnij dowolny klawisz, aby kontynuować");
+                        Console.ReadKey();
+                        break;
+                    default:
+                        Console.WriteLine("Zły wybór");
+                        break;
+                }
+            } while (choice != 8);
         }
     }
 }
