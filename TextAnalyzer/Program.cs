@@ -62,6 +62,8 @@ namespace TextAnalyzer
                         break;
                     case 8:
                         Console.WriteLine("Program closing, press any key to exit");
+                        File.Delete("1.txt");
+                        File.Delete("Statystyki.txt");
                         Console.ReadKey();
                         break;
                     default:
