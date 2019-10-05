@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
-
+using System.IO;
 
 namespace TextAnalyzer
 {
@@ -36,7 +36,7 @@ namespace TextAnalyzer
                         Filedown();
                         break;
                     case 2:
-                        //TBD
+                        CountLetters();
                         break;
                     case 3:
                         //TBD
@@ -62,13 +62,29 @@ namespace TextAnalyzer
                         break;
                 }
             } while (choice != 8);
-
-             void Filedown() {
-                WebClient Client = new WebClient();
-                Client.DownloadFile("https://s3.zylowski.net/public/input/1.txt", "C:1.txt");
-                Console.WriteLine("File downloaded succesfully");
+        }
+        public static void Filedown()
+        {
+            WebClient Client = new WebClient();
+            Client.DownloadFile("https://s3.zylowski.net/public/input/1.txt", "C:1.txt");
+            Console.WriteLine("File downloaded succesfully");
+            Console.ReadKey();
+        }
+       
+        public static void CountLetters()
+        {
+            if (File.Exists("1.txt"))
+            {
+                string text = File.ReadAllText("1.txt");
+                Console.WriteLine("Liczba liter w pliku: " + text.Count(char.IsLetter));
                 Console.ReadKey();
             }
+            else
+            {
+                Console.WriteLine("Brak pliku");
+                Console.ReadKey();
+            }
+            
         }
     }
 }
