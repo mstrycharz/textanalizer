@@ -42,7 +42,7 @@ namespace TextAnalyzer
                         CountWord();
                         break;
                     case 4:
-                        //TBD
+                        CountPunctuation();
                         break;
                     case 5:
                         //TBD
@@ -117,6 +117,21 @@ namespace TextAnalyzer
                 Console.WriteLine("Brak pliku");
                 Console.ReadKey();
             }
+        }
+        public static void CountPunctuation()
+        {
+            if (File.Exists("1.txt"))
+            {
+                string text = File.ReadAllText("1.txt");
+                Console.WriteLine("Liczba liter w pliku: " + text.Count(char.IsPunctuation));
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Brak pliku");
+                Console.ReadKey();
+            }
+
         }
     }
 }
