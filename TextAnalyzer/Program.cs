@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
+
 
 namespace TextAnalyzer
 {
@@ -31,7 +33,7 @@ namespace TextAnalyzer
                 switch (choice)
                 {
                     case 1:
-                        //TBD
+                        Filedown();
                         break;
                     case 2:
                         //TBD
@@ -60,6 +62,13 @@ namespace TextAnalyzer
                         break;
                 }
             } while (choice != 8);
+
+             void Filedown() {
+                WebClient Client = new WebClient();
+                Client.DownloadFile("https://s3.zylowski.net/public/input/1.txt", "C:1.txt");
+                Console.WriteLine("File downloaded succesfully");
+                Console.ReadKey();
+            }
         }
     }
 }
