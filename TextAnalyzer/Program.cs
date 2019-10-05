@@ -39,7 +39,7 @@ namespace TextAnalyzer
                         CountLetters();
                         break;
                     case 3:
-                        //TBD
+                        CountWord();
                         break;
                     case 4:
                         //TBD
@@ -85,6 +85,38 @@ namespace TextAnalyzer
                 Console.ReadKey();
             }
             
+        }
+        public static void CountWord()
+        {
+            if (File.Exists("1.txt"))
+            {
+                            
+               StreamReader sr = new StreamReader("1.txt");
+
+                int counter = 0;
+                string delim = " ;,."; //maybe some more delimiters like ?! and so on
+                string[] fields = null;
+                string line = null;
+
+                while (!sr.EndOfStream)
+                {
+                    line = sr.ReadLine();//each time you read a line you should split it into the words
+                    line.Trim();
+                    fields = line.Split(delim.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    counter += fields.Length; //and just add how many of them there is
+                }
+
+
+                sr.Close();
+                Console.WriteLine("The word count is {0}", counter);
+            
+            Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Brak pliku");
+                Console.ReadKey();
+            }
         }
     }
 }
