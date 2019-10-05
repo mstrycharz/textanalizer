@@ -48,7 +48,7 @@ namespace TextAnalyzer
                         CountSentences();
                         break;
                     case 6:
-                        //TBD
+                        LetterOccurrance();
                         break;
                     case 7:
                         //TBD
@@ -164,6 +164,23 @@ namespace TextAnalyzer
                 Console.WriteLine("Brak pliku");
                 Console.ReadKey();
             }
+        }
+        public static void LetterOccurrance()
+        {
+            string text = File.ReadAllText("1.txt");
+            text = text.ToUpper();
+            for (int i = 65; i <= 90; i++)
+            {
+                int res = 0;
+                for (int g = 0; g < text.Length; g++)
+                {
+                    if (text[g] == (char)i)
+                        res++;
+                }
+                Console.WriteLine((char)i + ":" + res);
+                
+            }
+            Console.ReadKey();
         }
     }
 }
