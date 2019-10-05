@@ -17,18 +17,19 @@ namespace TextAnalyzer
 
         public static void MainMenu()
         {
+                        
             int choice;
             do
             {
                 Console.Clear(); //Clear console each time menu is loaded
-                Console.WriteLine("1. Pobierz plik z internetu");
-                Console.WriteLine("2. Zlicz liczbę liter w pobranym pliku");
-                Console.WriteLine("3. Zlicz liczbę wyrazów w pliku");
-                Console.WriteLine("4. Zlicz liczbę znaków interpunkcyjnych w pliku");
-                Console.WriteLine("5. Zlicz liczbę zdań w pliku");
-                Console.WriteLine("6. Wygeneruj raport o użyciu liter (A-Z)");
-                Console.WriteLine("7. Zapisz statystyki z punktów 2-5 do pliku statystyki.txt");
-                Console.WriteLine("8. Wyjście z programu");
+                Console.WriteLine("1. Download file from the web");
+                Console.WriteLine("2. Count number of letters in file");
+                Console.WriteLine("3. Count number of words in file");
+                Console.WriteLine("4. Count number of punctuations in file");
+                Console.WriteLine("5. Count number of sentences in file");
+                Console.WriteLine("6. Generate report about usage of each letter (A-Z)");
+                Console.WriteLine("7. Save statitics from options 2-5 in statystyki.txt");
+                Console.WriteLine("8. Exit the program");
                 choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -37,28 +38,34 @@ namespace TextAnalyzer
                         break;
                     case 2:
                         CountLetters();
+                        Console.ReadKey();
                         break;
                     case 3:
                         CountWord();
+                        Console.ReadKey();
                         break;
                     case 4:
                         CountPunctuation();
+                        Console.ReadKey();
                         break;
                     case 5:
                         CountSentences();
+                        Console.ReadKey();
                         break;
                     case 6:
                         LetterOccurrance();
+                        Console.ReadKey();
                         break;
                     case 7:
-                        //TBD
+                        Statistics();
+                        Console.ReadKey();
                         break;
                     case 8:
-                        Console.WriteLine("Zamykanie programu. Naciśnij dowolny klawisz, aby kontynuować");
+                        Console.WriteLine("Program closing, press any key to exit");
                         Console.ReadKey();
                         break;
                     default:
-                        Console.WriteLine("Zły wybór");
+                        Console.WriteLine("Incorrect choice");
                         break;
                 }
             } while (choice != 8);
@@ -70,28 +77,28 @@ namespace TextAnalyzer
             Console.WriteLine("File downloaded succesfully");
             Console.ReadKey();
         }
-       
-        public static void CountLetters()
+
+        public static int CountLetters()
         {
             if (File.Exists("1.txt"))
             {
                 string text = File.ReadAllText("1.txt");
-                Console.WriteLine("Liczba liter w pliku: " + text.Count(char.IsLetter));
-                Console.ReadKey();
+                Console.WriteLine("Number of letters in file: " + text.Count(char.IsLetter));
+                return text.Count(char.IsLetter);
             }
             else
             {
-                Console.WriteLine("Brak pliku");
-                Console.ReadKey();
+                Console.WriteLine("No file found");
+                return 0;
             }
-            
+
         }
-        public static void CountWord()
+        public static int CountWord()
         {
             if (File.Exists("1.txt"))
             {
-                            
-               StreamReader sr = new StreamReader("1.txt");
+
+                StreamReader sr = new StreamReader("1.txt");
 
                 int counter = 0;
                 string delim = " ;,."; //maybe some more delimiters like ?! and so on
@@ -100,7 +107,7 @@ namespace TextAnalyzer
 
                 while (!sr.EndOfStream)
                 {
-                    line = sr.ReadLine();//each time you read a line you should split it into the words
+                    line = sr.ReadLine(); //each time you read a line you should split it into the words
                     line.Trim();
                     fields = line.Split(delim.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                     counter += fields.Length; //and just add how many of them there is
@@ -109,31 +116,36 @@ namespace TextAnalyzer
 
                 sr.Close();
                 Console.WriteLine("The word count is {0}", counter);
-            
-            Console.ReadKey();
+                
+                return counter;
             }
             else
             {
-                Console.WriteLine("Brak pliku");
-                Console.ReadKey();
+                Console.WriteLine("No file found");
+                
+                return 0;
             }
+
+
         }
-        public static void CountPunctuation()
+        public static int CountPunctuation()
         {
             if (File.Exists("1.txt"))
             {
                 string text = File.ReadAllText("1.txt");
-                Console.WriteLine("Liczba liter w pliku: " + text.Count(char.IsPunctuation));
-                Console.ReadKey();
+                Console.WriteLine("Number of punctuation in file: " + text.Count(char.IsPunctuation));
+                
+                return text.Count(char.IsPunctuation);
             }
             else
             {
-                Console.WriteLine("Brak pliku");
-                Console.ReadKey();
+                Console.WriteLine("No file found");
+                
+                return 0;
             }
 
         }
-        public static void CountSentences()
+        public static int CountSentences()
         {
             if (File.Exists("1.txt"))
             {
@@ -157,12 +169,14 @@ namespace TextAnalyzer
                 sr.Close();
                 Console.WriteLine("The sentence count is {0}", counter);
 
-                Console.ReadKey();
+               
+                return counter;
             }
             else
             {
-                Console.WriteLine("Brak pliku");
-                Console.ReadKey();
+                Console.WriteLine("No file found");
+                
+                return 0;
             }
         }
         public static void LetterOccurrance()
@@ -178,9 +192,21 @@ namespace TextAnalyzer
                         res++;
                 }
                 Console.WriteLine((char)i + ":" + res);
-                
+
             }
-            Console.ReadKey();
+            
+        }
+        public static void Statistics()
+        {
+            Console.WriteLine("Output to file: ");
+            string[] lines = { "Letter count: "+CountLetters().ToString(), "Word count: " + CountWord().ToString(), "Punctuation count: " + CountPunctuation().ToString(), "Sentences count: " + CountSentences().ToString() };
+            using (StreamWriter outputFile = new StreamWriter("Statystyki.txt"))
+            {
+                foreach (string line in lines)
+                    outputFile.WriteLine(line);
+            }
         }
     }
+
 }
+
