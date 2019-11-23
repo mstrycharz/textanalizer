@@ -17,7 +17,7 @@ namespace TextAnalyzer
 
         public static void MainMenu()
         {
-                        
+
             int choice;
             do
             {
@@ -85,8 +85,25 @@ namespace TextAnalyzer
             if (File.Exists("1.txt"))
             {
                 string text = File.ReadAllText("1.txt");
-                Console.WriteLine("Number of letters in file: " + text.Count(char.IsLetter));
-                return text.Count(char.IsLetter);
+                int i, len, vowel_count, cons_count;
+                vowel_count = 0;
+                cons_count = 0;
+                len = text.Length;
+                for (i = 0; i < len; i++)
+                {
+                    if (text[i] == 'a' || text[i] == 'e' || text[i] == 'i' || text[i] == 'o' || text[i] == 'u' || text[i] == 'A'
+                       || text[i] == 'E' || text[i] == 'I' || text[i] == 'O' || text[i] == 'U')
+                    {
+                        vowel_count++;
+                    }
+                    else if ((text[i] >= 'a' && text[i] <= 'z') || (text[i] >= 'A' && text[i] <= 'Z'))
+                    {
+                        cons_count++;
+                    }
+                }
+                Console.Write("\nVowel in the string: {0}\n", vowel_count);
+                Console.Write("Consonant in the string: {0}\n\n", cons_count);
+                return 0;
             }
             else
             {
@@ -118,13 +135,13 @@ namespace TextAnalyzer
 
                 sr.Close();
                 Console.WriteLine("The word count is {0}", counter);
-                
+
                 return counter;
             }
             else
             {
                 Console.WriteLine("No file found");
-                
+
                 return 0;
             }
 
@@ -136,13 +153,13 @@ namespace TextAnalyzer
             {
                 string text = File.ReadAllText("1.txt");
                 Console.WriteLine("Number of punctuation in file: " + text.Count(char.IsPunctuation));
-                
+
                 return text.Count(char.IsPunctuation);
             }
             else
             {
                 Console.WriteLine("No file found");
-                
+
                 return 0;
             }
 
@@ -171,13 +188,13 @@ namespace TextAnalyzer
                 sr.Close();
                 Console.WriteLine("The sentence count is {0}", counter);
 
-               
+
                 return counter;
             }
             else
             {
                 Console.WriteLine("No file found");
-                
+
                 return 0;
             }
         }
@@ -196,12 +213,12 @@ namespace TextAnalyzer
                 Console.WriteLine((char)i + ":" + res);
 
             }
-            
+
         }
         public static void Statistics()
         {
             Console.WriteLine("Output to file: ");
-            string[] lines = { "Letter count: "+CountLetters().ToString(), "Word count: " + CountWord().ToString(), "Punctuation count: " + CountPunctuation().ToString(), "Sentences count: " + CountSentences().ToString() };
+            string[] lines = { "Letter count: " + CountLetters().ToString(), "Word count: " + CountWord().ToString(), "Punctuation count: " + CountPunctuation().ToString(), "Sentences count: " + CountSentences().ToString() };
             using (StreamWriter outputFile = new StreamWriter("Statystyki.txt"))
             {
                 foreach (string line in lines)
@@ -211,4 +228,3 @@ namespace TextAnalyzer
     }
 
 }
-
